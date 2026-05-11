@@ -19,6 +19,9 @@
 
 	let activeCategory = $state<ProjectCategory | "All">("All");
 	let activeProjectId = $state("");
+	let activeProjectIndex = $state(0);
+	let isInteracting = $state(false);
+	let showcaseEl: HTMLElement;
 
 	const filteredProjects = $derived(
 		activeCategory === "All"
@@ -47,6 +50,30 @@
 		const nextProject =
 			filter === "All" ? projects[0] : projects.find((project) => project.category === filter);
 		activeProjectId = nextProject?.id ?? "";
+		activeProjectIndex = 0;
+	}
+
+	function setActive(project: PortfolioProject, index: number) {
+		activeProjectId = project.id;
+		activeProjectIndex = index;
+		isInteracting = true;
+	}
+
+	function handlePointerMove(event: PointerEvent) {
+		if (!showcaseEl) return;
+
+		const rect = showcaseEl.getBoundingClientRect();
+		const x = event.clientX - rect.left;
+		const y = event.clientY - rect.top;
+		const previewX = x / rect.width - 0.5;
+		const previewY = y / rect.height - 0.5;
+
+		showcaseEl.style.setProperty("--cursor-x", `${x}px`);
+		showcaseEl.style.setProperty("--cursor-y", `${y}px`);
+		showcaseEl.style.setProperty("--preview-tilt-x", `${previewY * -8}deg`);
+		showcaseEl.style.setProperty("--preview-tilt-y", `${previewX * 10}deg`);
+		showcaseEl.style.setProperty("--preview-shift-x", `${previewX * 18}px`);
+		showcaseEl.style.setProperty("--preview-shift-y", `${previewY * 18}px`);
 	}
 
 	function visualClass(category: ProjectCategory) {
@@ -58,7 +85,14 @@
 	}
 </script>
 
-<section class={compact ? "work-showcase work-showcase-compact" : "work-showcase"}>
+<section
+	bind:this={showcaseEl}
+	aria-label="Interactive work showcase"
+	class={compact ? "work-showcase work-showcase-compact" : "work-showcase"}
+	class:is-interacting={isInteracting}
+	onpointermove={handlePointerMove}
+	onpointerleave={() => (isInteracting = false)}
+>
 	<div class="work-toolbar">
 		<div class="work-filters" aria-label="Project filters">
 			{#each filters as filter (filter)}
@@ -93,9 +127,10 @@
 					<a
 						href={`${base}/projects/${project.id}`}
 						class="work-row"
-						class:active={activeProject?.id === project.id}
-						onmouseenter={() => (activeProjectId = project.id)}
-						onfocus={() => (activeProjectId = project.id)}
+						class:active={isInteracting && activeProject?.id === project.id}
+						onpointerenter={() => setActive(project, index)}
+						onfocus={() => setActive(project, index)}
+						onblur={() => (isInteracting = false)}
 					>
 						<span class="work-index">{String(index + 1).padStart(2, "0")}</span>
 						<span class="work-title">
@@ -117,24 +152,33 @@
 			<aside class="work-preview" aria-label="Selected project preview">
 				<div class={`work-preview-card bg-gradient-to-br ${visualClass(activeProject.category)}`}>
 					<div class="preview-grid"></div>
-					<div class="preview-window">
-						<div class="preview-topbar">
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-						<div class="preview-body">
-							<div class="preview-stat">
-								<span>{activeProject.category}</span>
-								<strong>{projectYear(activeProject.period)}</strong>
+					<div class="preview-depth">
+						{#key activeProject.id}
+							<div class="preview-window" style={`--preview-index:${activeProjectIndex}`}>
+								<div class="preview-topbar">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="preview-body">
+									<div class="preview-stat">
+										<span>{activeProject.category}</span>
+										<strong>{projectYear(activeProject.period)}</strong>
+									</div>
+									<div class="preview-title">{activeProject.title}</div>
+									<div class="preview-lines">
+										{#each activeProject.stack.slice(0, 5) as item (item)}
+											<span>{item}</span>
+										{/each}
+									</div>
+								</div>
 							</div>
-							<div class="preview-title">{activeProject.title}</div>
-							<div class="preview-lines">
-								{#each activeProject.stack.slice(0, 5) as item (item)}
-									<span>{item}</span>
-								{/each}
-							</div>
-						</div>
+						{/key}
+					</div>
+					<div class="preview-ruler" aria-hidden="true">
+						{#each filteredProjects.slice(0, 6) as project, index (project.id)}
+							<span class:active={index === activeProjectIndex}></span>
+						{/each}
 					</div>
 				</div>
 
@@ -148,5 +192,9 @@
 				</div>
 			</aside>
 		{/if}
+	</div>
+
+	<div class="work-cursor" aria-hidden="true">
+		<span>View</span>
 	</div>
 </section>

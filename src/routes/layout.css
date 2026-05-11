@@ -321,6 +321,13 @@ html {
 
 	.work-showcase {
 		@apply space-y-8;
+		position: relative;
+		--cursor-x: 50%;
+		--cursor-y: 50%;
+		--preview-tilt-x: 0deg;
+		--preview-tilt-y: 0deg;
+		--preview-shift-x: 0px;
+		--preview-shift-y: 0px;
 	}
 
 	.work-toolbar {
@@ -332,7 +339,8 @@ html {
 	}
 
 	.work-filters button {
-		@apply inline-flex shrink-0 items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-4 py-2 text-sm font-black transition hover:border-foreground hover:bg-foreground hover:text-background;
+		@apply inline-flex shrink-0 items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-4 py-2 text-sm font-black transition duration-300 hover:border-foreground hover:bg-foreground hover:text-background;
+		transform-origin: center;
 	}
 
 	.work-filters button small {
@@ -341,6 +349,11 @@ html {
 
 	.work-filters button.active {
 		@apply border-foreground bg-foreground text-background;
+	}
+
+	.work-filters button:hover,
+	.work-filters button:focus-visible {
+		transform: scale(0.94);
 	}
 
 	.work-filters button.active small,
@@ -370,10 +383,18 @@ html {
 
 	.work-rows {
 		@apply divide-y divide-foreground/10 border-b border-foreground/10;
+		position: relative;
 	}
 
 	.work-row {
 		@apply relative grid min-h-32 grid-cols-[2.4rem_minmax(0,1fr)_auto] gap-x-4 gap-y-4 py-5 text-foreground transition duration-300 sm:grid-cols-[3rem_minmax(0,1.35fr)_0.75fr_0.95fr_4rem_auto] sm:items-center lg:min-h-28 lg:grid-cols-[minmax(0,1.35fr)_0.75fr_0.95fr_5rem_auto] lg:pl-0;
+		transform-origin: center left;
+		will-change: transform, opacity, filter;
+		transition:
+			transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 360ms ease,
+			filter 360ms ease,
+			color 220ms ease;
 	}
 
 	.work-row::before {
@@ -394,12 +415,27 @@ html {
 	.work-row:focus-visible::before,
 	.work-row.active::before {
 		opacity: 1;
-		transform: scaleX(1) scaleY(1);
+		transform: scaleX(1.015) scaleY(1);
 	}
 
 	.work-row:hover,
 	.work-row:focus-visible {
 		@apply outline-none;
+	}
+
+	.work-rows:has(.work-row:hover) .work-row,
+	.work-rows:has(.work-row:focus-visible) .work-row {
+		opacity: 0.38;
+		filter: grayscale(0.75);
+		transform: scale(0.985);
+	}
+
+	.work-rows:has(.work-row:hover) .work-row:hover,
+	.work-rows:has(.work-row:focus-visible) .work-row:focus-visible,
+	.work-rows:has(.work-row.active) .work-row.active {
+		opacity: 1;
+		filter: grayscale(0);
+		transform: scale(1.035);
 	}
 
 	.work-index {
@@ -412,6 +448,7 @@ html {
 
 	.work-title strong {
 		@apply block font-display text-2xl leading-tight font-black tracking-tight transition duration-300 sm:text-3xl;
+		transform-origin: left center;
 	}
 
 	.work-title small {
@@ -421,7 +458,20 @@ html {
 	.work-row:hover .work-title strong,
 	.work-row:focus-visible .work-title strong,
 	.work-row.active .work-title strong {
-		@apply translate-x-1 text-cyan;
+		@apply translate-x-2 text-cyan;
+		transform: translateX(0.5rem) scale(1.045);
+	}
+
+	.work-row:hover .work-focus,
+	.work-row:hover .work-stack,
+	.work-row:hover .work-year,
+	.work-row:focus-visible .work-focus,
+	.work-row:focus-visible .work-stack,
+	.work-row:focus-visible .work-year,
+	.work-row.active .work-focus,
+	.work-row.active .work-stack,
+	.work-row.active .work-year {
+		color: var(--foreground);
 	}
 
 	.work-focus,
@@ -446,7 +496,8 @@ html {
 	.work-row:hover .work-arrow,
 	.work-row:focus-visible .work-arrow,
 	.work-row.active .work-arrow {
-		@apply -translate-y-1 translate-x-1 border-cyan bg-cyan text-background;
+		@apply border-cyan bg-cyan text-background;
+		transform: translate(0.25rem, -0.25rem) scale(1.12);
 	}
 
 	@media (min-width: 640px) {
@@ -470,10 +521,24 @@ html {
 
 	.work-preview {
 		@apply hidden lg:sticky lg:top-32 lg:block lg:self-start;
+		perspective: 1200px;
 	}
 
 	.work-preview-card {
 		@apply relative aspect-[4/5] overflow-hidden rounded-[1.8rem] border border-foreground/10 shadow-[0_30px_90px_rgba(15,23,42,0.15)];
+		transform: translate3d(var(--preview-shift-x), var(--preview-shift-y), 0)
+			rotateX(var(--preview-tilt-x)) rotateY(var(--preview-tilt-y)) scale(0.965);
+		transform-style: preserve-3d;
+		will-change: transform;
+		transition:
+			transform 580ms cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 420ms ease;
+	}
+
+	.work-showcase.is-interacting .work-preview-card {
+		transform: translate3d(var(--preview-shift-x), var(--preview-shift-y), 0)
+			rotateX(var(--preview-tilt-x)) rotateY(var(--preview-tilt-y)) scale(1.015);
+		box-shadow: 0 42px 120px color-mix(in oklab, var(--cyan) 24%, transparent);
 	}
 
 	.preview-grid {
@@ -485,30 +550,74 @@ html {
 		background-size: 2.3rem 2.3rem;
 		mask-image: radial-gradient(circle at 50% 44%, black, transparent 75%);
 		opacity: 0.7;
-		transform: scale(1.18);
-		transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+		transform: scale(1.26) rotate(0.001deg);
+		transition:
+			transform 720ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 360ms ease;
+	}
+
+	.preview-depth {
+		position: absolute;
+		inset: 0;
+		transform-style: preserve-3d;
 	}
 
 	.preview-window {
 		@apply absolute inset-6 flex flex-col overflow-hidden rounded-[1.25rem] border border-white/30 bg-zinc-950/82 text-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur;
-		transform: scale(1.08) translateY(1.1rem);
-		transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+		transform: translateZ(4rem) scale(1.18) translateY(1.2rem);
+		transform-origin: center;
+		animation: previewSwap 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+		transition:
+			transform 720ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 420ms ease,
+			opacity 420ms ease;
+		will-change: transform;
 	}
 
 	.work-preview:hover .preview-window,
 	.work-showcase:has(.work-row:hover) .preview-window,
 	.work-showcase:has(.work-row:focus-visible) .preview-window {
-		transform: scale(0.96) translateY(0);
+		transform: translateZ(1.5rem) scale(0.92) translateY(0);
+		filter: saturate(1.15) contrast(1.08);
 	}
 
 	.work-preview:hover .preview-grid,
 	.work-showcase:has(.work-row:hover) .preview-grid,
 	.work-showcase:has(.work-row:focus-visible) .preview-grid {
-		transform: scale(1);
+		transform: scale(1) rotate(calc(var(--preview-index, 0) * 1deg));
+		opacity: 0.95;
+	}
+
+	.preview-window::before {
+		content: "";
+		position: absolute;
+		inset: -18%;
+		z-index: 0;
+		background:
+			radial-gradient(
+				circle at 24% 18%,
+				color-mix(in oklab, var(--cyan) 34%, transparent),
+				transparent 32%
+			),
+			radial-gradient(
+				circle at 80% 78%,
+				color-mix(in oklab, var(--amber) 26%, transparent),
+				transparent 34%
+			);
+		opacity: 0.68;
+		transform: scale(1.25);
+		transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.work-showcase:has(.work-row:hover) .preview-window::before,
+	.work-showcase:has(.work-row:focus-visible) .preview-window::before {
+		transform: scale(0.95);
 	}
 
 	.preview-topbar {
 		@apply flex gap-2 border-b border-white/10 p-4;
+		position: relative;
+		z-index: 1;
 	}
 
 	.preview-topbar span {
@@ -517,6 +626,8 @@ html {
 
 	.preview-body {
 		@apply flex flex-1 flex-col justify-between p-6;
+		position: relative;
+		z-index: 1;
 	}
 
 	.preview-stat {
@@ -537,6 +648,49 @@ html {
 
 	.preview-lines span {
 		@apply h-9 rounded-full bg-white/10 px-4 py-2 text-xs font-bold text-white/72;
+		transform: translateX(0) scaleX(1);
+		transform-origin: left center;
+		transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.work-showcase:has(.work-row:hover) .preview-lines span:nth-child(1),
+	.work-showcase:has(.work-row:focus-visible) .preview-lines span:nth-child(1) {
+		transform: translateX(0.25rem) scaleX(0.88);
+	}
+
+	.work-showcase:has(.work-row:hover) .preview-lines span:nth-child(2),
+	.work-showcase:has(.work-row:focus-visible) .preview-lines span:nth-child(2) {
+		transform: translateX(1.2rem) scaleX(0.72);
+	}
+
+	.work-showcase:has(.work-row:hover) .preview-lines span:nth-child(3),
+	.work-showcase:has(.work-row:focus-visible) .preview-lines span:nth-child(3) {
+		transform: translateX(0.55rem) scaleX(0.82);
+	}
+
+	.preview-ruler {
+		position: absolute;
+		right: 1.2rem;
+		bottom: 1.2rem;
+		z-index: 5;
+		display: flex;
+		gap: 0.4rem;
+	}
+
+	.preview-ruler span {
+		width: 0.48rem;
+		height: 0.48rem;
+		border-radius: 9999px;
+		background: rgba(255, 255, 255, 0.35);
+		transform: scale(0.8);
+		transition:
+			transform 320ms ease,
+			background 320ms ease;
+	}
+
+	.preview-ruler span.active {
+		background: white;
+		transform: scale(1.7);
 	}
 
 	.work-preview-meta {
@@ -557,6 +711,44 @@ html {
 
 	.work-showcase-compact .work-preview {
 		@apply hidden;
+	}
+
+	.work-cursor {
+		position: absolute;
+		left: var(--cursor-x);
+		top: var(--cursor-y);
+		z-index: 30;
+		display: none;
+		width: 4.8rem;
+		height: 4.8rem;
+		place-items: center;
+		border-radius: 9999px;
+		background: var(--foreground);
+		color: var(--background);
+		font-size: 0.72rem;
+		font-weight: 900;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		pointer-events: none;
+		transform: translate(-50%, -50%) scale(0);
+		opacity: 0;
+		transition:
+			transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 240ms ease;
+	}
+
+	.work-cursor span {
+		transform: rotate(-8deg);
+	}
+
+	.work-showcase.is-interacting .work-cursor {
+		display: grid;
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	.work-showcase-compact .work-cursor {
+		display: none;
 	}
 
 	.timeline::before {
@@ -986,5 +1178,30 @@ html {
 	}
 	50% {
 		scale: 1.12;
+	}
+}
+
+@keyframes previewSwap {
+	from {
+		opacity: 0;
+		transform: translateZ(7rem) scale(1.32) translateY(2.2rem) rotate(1.5deg);
+	}
+	to {
+		opacity: 1;
+		transform: translateZ(4rem) scale(1.18) translateY(1.2rem) rotate(0deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.work-row,
+	.work-row::before,
+	.work-preview-card,
+	.preview-grid,
+	.preview-window,
+	.preview-window::before,
+	.preview-lines span,
+	.work-cursor {
+		animation: none;
+		transition-duration: 1ms;
 	}
 }
