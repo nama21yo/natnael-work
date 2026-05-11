@@ -7,14 +7,20 @@
 	import { mode, toggleMode } from "mode-watcher";
 	import Icon from "@iconify/svelte";
 
-	import favicon from "$lib/assets/favicon.svg";
+	import bellAppleTouch from "$lib/assets/bell-apple-touch.png";
+	import bellIcon from "$lib/assets/bell-icon.png";
 	import { profile } from "$lib/data/portfolio";
 
 	let { children } = $props();
 
 	const navItems = [
 		{ href: `${base}/`, path: "/", label: "Home", icon: "iconoir:home" },
-		{ href: `${base}/projects`, path: "/projects", label: "Projects", icon: "iconoir:database-script" },
+		{
+			href: `${base}/projects`,
+			path: "/projects",
+			label: "Projects",
+			icon: "iconoir:database-script"
+		},
 		{ href: `${base}/blog`, path: "/blog", label: "Blogs", icon: "iconoir:book-stack" },
 		{ href: `${base}/about`, path: "/about", label: "About", icon: "iconoir:user-star" }
 	];
@@ -29,16 +35,19 @@
 	];
 
 	function isActive(path: string) {
-		const pathname = base && page.url.pathname.startsWith(base)
-			? page.url.pathname.slice(base.length) || "/"
-			: page.url.pathname;
+		const pathname =
+			base && page.url.pathname.startsWith(base)
+				? page.url.pathname.slice(base.length) || "/"
+				: page.url.pathname;
 		if (path === "/") return pathname === "/";
 		return pathname.startsWith(path);
 	}
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={`${base}/favicon.ico`} sizes="any" />
+	<link rel="icon" type="image/png" href={bellIcon} />
+	<link rel="apple-touch-icon" href={bellAppleTouch} />
 	<title>{profile.name} | Backend AI Engineer</title>
 	<meta
 		name="description"
@@ -74,9 +83,9 @@
 		>
 			<a href={`${base}/`} class="group flex items-center gap-3">
 				<span
-					class="grid h-11 w-11 place-items-center rounded-2xl bg-foreground font-black text-background shadow-[6px_6px_0_var(--cyan)] transition group-hover:-translate-y-0.5 group-hover:rotate-3"
+					class="brand-mark grid h-11 w-11 place-items-center overflow-hidden rounded-2xl bg-foreground font-black text-background shadow-[6px_6px_0_var(--cyan)] transition group-hover:-translate-y-0.5 group-hover:rotate-3"
 				>
-					NY
+					<img src={bellIcon} alt="" aria-hidden="true" />
 				</span>
 				<span class="hidden sm:block">
 					<span class="block font-mono text-lg font-black tracking-tight">Natnael Yohanes</span>

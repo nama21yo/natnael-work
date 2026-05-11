@@ -4,6 +4,7 @@
 	import { fade, fly } from "svelte/transition";
 	import { onMount } from "svelte";
 	import AnimatedPortrait from "$lib/components/AnimatedPortrait.svelte";
+	import bellImage from "$lib/assets/images/bell-4101461_1920.jpg";
 	import { profile } from "$lib/data/portfolio";
 
 	let introComplete = $state(false);
@@ -35,6 +36,7 @@
 	{/if}
 
 	<div class="absolute inset-0 -z-10">
+		<img src={bellImage} alt="" class="hero-bell-bg" aria-hidden="true" />
 		<div
 			class="absolute top-20 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full border border-cyan/20 bg-[radial-gradient(circle,rgba(34,211,238,0.18),transparent_62%)]"
 		></div>
