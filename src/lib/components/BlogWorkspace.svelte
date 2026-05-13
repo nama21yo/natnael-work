@@ -74,18 +74,22 @@
 		<div class="prose-obsidian mt-8">
 			{#each activeNote.body as paragraph (paragraph)}
 				<p>
-					{#each wikiSegments(paragraph) as segment}
+					{#each wikiSegments(paragraph) as segment, index (index)}
 						{#if segment.link}
 							<a
-								class="wiki-token"
-								href={segment.link}
+								href={segment.link.startsWith("http")
+									? segment.link
+									: segment.link.startsWith("/")
+										? segment.link
+										: `${base}/blog/${segment.link}`}
 								target={segment.link.startsWith("http") ? "_blank" : undefined}
-								rel="noreferrer"
+								rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+								class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
 							>
-								[[{segment.text}]]
+								{segment.text}
 							</a>
 						{:else}
-							{segment.text}
+							<span>{segment.text}</span>
 						{/if}
 					{/each}
 				</p>
