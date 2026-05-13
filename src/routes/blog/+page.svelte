@@ -11,10 +11,10 @@
 			<h1
 				class="font-display text-5xl leading-tight font-black tracking-tight transition-colors duration-500 hover:text-amber md:text-7xl"
 			>
-				Obsidian-style technical notes.
+				Technical notes and research.
 			</h1>
 			<p class="mt-6 text-xl leading-9 text-muted-foreground">
-				Concise blogs with [[wikilinks]], backlinks, and a mind map. Current focus: Kademlia.
+				Deep dives into system design, machine learning, and software architecture.
 			</p>
 		</div>
 	</ScrollReveal>
