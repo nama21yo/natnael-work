@@ -35,7 +35,7 @@
 		unobserveOnEnter: true,
 		rootMargin: "-50px"
 	}}
-	onchange={(e) => {
+	oninview_change={(e) => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore - Svelte types event as Event, but svelte-inview fires CustomEvent
 		if (e.detail?.inView) {
