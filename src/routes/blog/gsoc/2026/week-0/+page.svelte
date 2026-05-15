@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { base } from "\$app/paths";
+	import { base } from "$app/paths";
 	import Icon from "@iconify/svelte";
 	import ZettelLink from "$lib/components/ZettelLink.svelte";
 
@@ -21,39 +21,36 @@
 	];
 
 	const bodyParagraphs = [
-		"## Week 0: Kicking off GSoC 2026",
 		"This summer I'm working on [[GSoC 2026]] with [[DBpedia]] to extend the [[Amharic DBpedia Chapter]]. The goal is to build an agentic system that maps Amharic text entities to their correct DBpedia ontology classes — a critical step toward making Amharic knowledge accessible in the global knowledge graph.",
 		"The project leverages [[Afro-XLM-R]], a multilingual transformer optimized for African languages, fine-tuned with [[LoRA]] and orchestrated through [[LangGraph]].",
-		"## Mentorship & Communication",
 		"Had my first onboarding meeting with mentors [[Prof. Dr. Ricardo Usbeck]], [[Andargachew]], [[Tilahun]], and [[Hizkiel]]. We introduced ourselves and locked in weekly sync meetings for Fridays at 2:00 PM. Joined all primary communication channels: Slack, WhatsApp, and Microsoft Teams.",
 		"My mentors have rich backgrounds — [[Prof. Dr. Ricardo Usbeck]] leads AI research in Germany at Leuphana University, [[Andargachew]] is a lecturer at Addis Ababa University specializing in knowledge graphs and NLP, [[Tilahun]] is a PhD researcher at Leuphana working on hybrid QA systems for low-resource languages, and [[Hizkiel]] is a PhD candidate at Paderborn University focused on NLP and Digital Humanities.",
-		"## Research & Literature Review",
-		"Conducted a deep-dive revision of the [[Amharic DBpedia Chapter]] paper and analyzed the three property-retriever models by the [[DICE-Research]] team. Refreshed core knowledge of [[BERT]], [[Transformers]], and efficient fine-tuning like [[LoRA]].",
-		"## Technical Exploration",
+		"Conducted a deep-dive revision of the [[Amharic DBpedia Chapter]] paper and analyzed the three property-retriever models by the [[DICE-Research]] team. Refreshed core knowledge of [[BERT]] and efficient fine-tuning like [[LoRA]].",
 		"Performed model benchmarking on Kaggle using GPU to evaluate [[mBERT]], [[XLM-R]], and [[Afro-XLM-R]]. Validated [[Afro-XLM-R]] as the optimal base model for Amharic ontology mapping.",
 		"Selected [[LangGraph]] as the primary framework for the agentic orchestration layer — used in production by companies like LinkedIn with strong community support.",
-		"## Looking Ahead",
 		"Over the next 11 weeks I will be posting weekly updates. Next up: diving deeper into the Afro-XLM-R fine-tuning pipeline and setting up the LangGraph agent architecture."
 	];
 
-	function wikiSegments(paragraph: string) {
-		const pattern = /\[\[([^\]]+)\]\]/g;
+	function renderParagraph(paragraph: string) {
 		const segments: { text: string; link?: string }[] = [];
 		let cursor = 0;
 		let match: RegExpExecArray | null;
-
-		while ((match = pattern.exec(paragraph))) {
-			if (match.index > cursor) segments.push({ text: paragraph.slice(cursor, match.index) });
+		const wikiPattern = /\[\[([^\]]+)\]\]/g;
+		while ((match = wikiPattern.exec(paragraph))) {
+			if (match.index > cursor) {
+				segments.push({ text: paragraph.slice(cursor, match.index) });
+			}
 			const label = match[1];
 			const wikiEntry = wikiLinks.find((item) => item.label === label);
 			segments.push({
 				text: label,
-				link: wikiEntry?.href ?? `#${label.toLowerCase().replaceAll(" ", "-")}`
+				link: wikiEntry?.href
 			});
 			cursor = match.index + match[0].length;
 		}
-
-		if (cursor < paragraph.length) segments.push({ text: paragraph.slice(cursor) });
+		if (cursor < paragraph.length) {
+			segments.push({ text: paragraph.slice(cursor) });
+		}
 		return segments;
 	}
 
@@ -109,12 +106,10 @@
 		<div class="prose-obsidian mt-8">
 			{#each bodyParagraphs as paragraph (paragraph)}
 				<p>
-					{#each wikiSegments(paragraph) as segment, index (index)}
+					{#each renderParagraph(paragraph) as segment, index (index)}
 						{#if segment.link}
 							<a
-								href={segment.link.startsWith("http")
-									? segment.link
-									: `${base}/blog/gsoc/2026/week-0${segment.link}`}
+								href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/week-0#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
 								target={segment.link.startsWith("http") ? "_blank" : undefined}
 								rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
 								class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
@@ -159,7 +154,7 @@
 						DBpedia
 					</div>
 					<div class="mt-6 flex flex-wrap justify-center gap-2 px-4">
-						{#each mindMapNodes as node, i}
+						{#each mindMapNodes as node}
 							{#if node.slug !== "dbpedia"}
 								<a
 									href={`${base}/blog/gsoc/2026/week-0#${node.slug}`}

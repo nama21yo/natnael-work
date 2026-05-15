@@ -92,32 +92,6 @@
 				</p>
 			{/each}
 		</div>
-
-		<div class="mt-10 grid gap-4 md:grid-cols-2">
-			{#each activeNote.linkedProjects as projectId (projectId)}
-				<ZettelLink
-					href={`${base}/projects/${projectId}`}
-					title={getProjectTitle(projectId)}
-					reason={getProjectSummary(projectId)}
-					tags={getProjectTags(projectId)}
-					variant="project"
-				/>
-			{/each}
-		</div>
-
-		<div class="mt-10 border-t border-foreground/10 pt-8">
-			<p class="blog-label">Referenced concepts</p>
-			<div class="mt-4 grid gap-3 md:grid-cols-2">
-				{#each activeNote.wikiLinks as link (link.slug)}
-					<section id={link.slug} class="rounded-2xl border border-foreground/10 bg-muted/35 p-4">
-						<p class="font-mono text-sm font-black text-cyan">[[{link.label}]]</p>
-						<p class="mt-2 text-sm leading-6 text-muted-foreground">
-							Concept node linked from the Kademlia note.
-						</p>
-					</section>
-				{/each}
-			</div>
-		</div>
 	</article>
 
 	<aside class="obsidian-panel h-fit lg:sticky lg:top-28">
