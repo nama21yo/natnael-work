@@ -18,6 +18,9 @@
 				? "border-emerald-border bg-emerald-subtle text-emerald"
 				: "border-cyan-border bg-cyan-subtle text-cyan"
 	);
+
+	const isWikiLink = $derived(title.startsWith("[[") && title.endsWith("]]"));
+	const displayTitle = $derived(isWikiLink ? title.slice(2, -2) : title);
 </script>
 
 <a
@@ -33,7 +36,7 @@
 						? "Backlink"
 						: "Wikilink"}
 			</p>
-			<h3 class="mt-2 font-mono text-lg font-black text-foreground">[[{title}]]</h3>
+			<h3 class="mt-2 font-mono text-lg font-black text-foreground">{displayTitle}</h3>
 		</div>
 		<Icon
 			icon="iconoir:arrow-up-right"

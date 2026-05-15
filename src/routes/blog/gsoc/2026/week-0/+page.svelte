@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from "$app/paths";
-	import Icon from "@iconify/svelte";
 	import ZettelLink from "$lib/components/ZettelLink.svelte";
 
 	const wikiLinks = [
@@ -55,13 +54,12 @@
 	}
 
 	const mindMapNodes = [
-		{ label: "DBpedia", slug: "dbpedia" },
-		{ label: "Amharic", slug: "amharic-dbpedia-chapter" },
-		{ label: "Afro-XLM-R", slug: "afro-xlm-r" },
-		{ label: "LoRA", slug: "lora" },
-		{ label: "mBERT", slug: "mbert" },
-		{ label: "LangGraph", slug: "langgraph" },
-		{ label: "BERT", slug: "bert" }
+		{ label: "Amharic", slug: "amharic-dbpedia-chapter", angle: 285 },
+		{ label: "LoRA", slug: "lora", angle: 330 },
+		{ label: "mBERT", slug: "mbert", angle: 15 },
+		{ label: "BERT", slug: "bert", angle: 60 },
+		{ label: "LangGraph", slug: "langgraph", angle: 105 },
+		{ label: "Afro-XLM-R", slug: "afro-xlm-r", angle: 150 }
 	];
 </script>
 
@@ -142,30 +140,38 @@
 			<p class="blog-label">Mind map</p>
 			<div class="relative mt-4 h-64 rounded-3xl bg-zinc-950 text-white overflow-hidden">
 				<svg class="absolute inset-0 h-full w-full" viewBox="0 0 260 256" preserveAspectRatio="xMidYMid meet">
-					<path
-						d="M128 132 L48 44 M128 132 L188 70 M128 132 L218 162 M128 132 L72 200 M128 132 L170 218 M128 132 L30 140 M128 132 L228 130"
-						stroke="rgba(34,211,238,0.25)"
-						fill="none"
-						stroke-dasharray="6 7"
-					/>
+					{#each mindMapNodes as node}
+						{@const rad = (node.angle * Math.PI) / 180}
+						{@const x1 = 128 + 28 * Math.cos(rad)}
+						{@const y1 = 128 + 28 * Math.sin(rad)}
+						{@const x2 = 128 + 96 * Math.cos(rad)}
+						{@const y2 = 128 + 96 * Math.sin(rad)}
+						<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(34,211,238,0.25)" stroke-dasharray="6 7"/>
+					{/each}
 				</svg>
-				<div class="relative z-10 flex h-full flex-col items-center justify-center">
+				<div class="absolute inset-0 flex items-center justify-center">
 					<div class="grid h-16 w-16 place-items-center rounded-full border border-cyan bg-cyan text-center text-[9px] font-black text-zinc-950">
 						DBpedia
 					</div>
-					<div class="mt-6 flex flex-wrap justify-center gap-2 px-4">
-						{#each mindMapNodes as node}
-							{#if node.slug !== "dbpedia"}
-								<a
-									href={`${base}/blog/gsoc/2026/week-0#${node.slug}`}
-									class="grid h-14 w-14 place-items-center rounded-full border border-white/15 bg-white/10 p-2 text-center text-[8px] font-black text-white/75 transition hover:scale-110 hover:border-cyan hover:text-cyan"
-								>
-									{node.label}
-								</a>
-							{/if}
-						{/each}
-					</div>
 				</div>
+				{#each mindMapNodes as node}
+					{@const rad = (node.angle * Math.PI) / 180}
+					{@const cx = 128 + 96 * Math.cos(rad)}
+					{@const cy = 128 + 96 * Math.sin(rad)}
+					{@const px = cx > 130 ? -72 : cx < 130 ? -8 : -40}
+					{@const py = cy > 130 ? -10 : cy < 126 ? 28 : 8}
+					<div
+						style="left: calc({(cx / 260) * 100}% + {px}px); top: calc({(cy / 256) * 100}% + {py}px);"
+						class="absolute flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/10 p-2 text-center text-[8px] font-black text-white/75 transition hover:scale-110 hover:border-cyan hover:text-cyan"
+					>
+						<a
+							href={`${base}/blog/gsoc/2026/week-0#${node.slug}`}
+							class="h-full w-full flex items-center justify-center"
+						>
+							{node.label}
+						</a>
+					</div>
+				{/each}
 			</div>
 		</div>
 	</aside>

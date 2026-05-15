@@ -5,7 +5,21 @@
 	import { base } from "$app/paths";
 	import { ModeWatcher } from "mode-watcher";
 	import { mode, toggleMode } from "mode-watcher";
-	import Icon from "@iconify/svelte";
+	import {
+		Mail,
+		Linkedin,
+		Github,
+		Twitter,
+		Send,
+		MessageCircle,
+		Sun,
+		Moon,
+		Home,
+		Database,
+		BookMarked,
+		User,
+		ArrowRight
+	} from "lucide-svelte";
 
 	import bellAppleTouch from "$lib/assets/bell-apple-touch.png";
 	import bellIcon from "$lib/assets/bell-icon.png";
@@ -14,24 +28,19 @@
 	let { children } = $props();
 
 	const navItems = [
-		{ href: `${base}/`, path: "/", label: "Home", icon: "iconoir:home" },
-		{
-			href: `${base}/projects`,
-			path: "/projects",
-			label: "Projects",
-			icon: "iconoir:database-script"
-		},
-		{ href: `${base}/blog`, path: "/blog", label: "Blogs", icon: "iconoir:book-stack" },
-		{ href: `${base}/about`, path: "/about", label: "About", icon: "iconoir:user-star" }
+		{ href: `${base}/`, path: "/", label: "Home", icon: Home },
+		{ href: `${base}/projects`, path: "/projects", label: "Projects", icon: Database },
+		{ href: `${base}/blog`, path: "/blog", label: "Blogs", icon: BookMarked },
+		{ href: `${base}/about`, path: "/about", label: "About", icon: User }
 	];
 
 	const socials = [
-		{ href: `mailto:${profile.email}`, icon: "iconoir:mail", label: "Email" },
-		{ href: profile.linkedin, icon: "iconoir:linkedin", label: "LinkedIn" },
-		{ href: profile.github, icon: "iconoir:github", label: "GitHub" },
-		{ href: profile.x, icon: "simple-icons:x", label: "X" },
-		{ href: profile.telegram, icon: "simple-icons:telegram", label: "Telegram" },
-		{ href: profile.whatsapp, icon: "simple-icons:whatsapp", label: "WhatsApp" }
+		{ href: `mailto:${profile.email}`, label: "Email", icon: Mail },
+		{ href: profile.linkedin, label: "LinkedIn", icon: Linkedin },
+		{ href: profile.github, label: "GitHub", icon: Github },
+		{ href: profile.x, label: "X", icon: Twitter },
+		{ href: profile.telegram, label: "Telegram", icon: Send },
+		{ href: profile.whatsapp, label: "WhatsApp", icon: MessageCircle }
 	];
 
 	function isActive(path: string) {
@@ -108,7 +117,7 @@
 								: "text-muted-foreground hover:-translate-y-0.5 hover:bg-background hover:text-foreground"
 						}`}
 					>
-						<Icon icon={item.icon} width="16" />
+						<item.icon size={16} />
 						{item.label}
 					</a>
 				{/each}
@@ -123,7 +132,7 @@
 						class="hidden h-10 w-10 place-items-center rounded-full border border-foreground/10 transition hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background sm:grid"
 						aria-label={social.label}
 					>
-						<Icon icon={social.icon} width="17" />
+						<social.icon size={17} />
 					</a>
 				{/each}
 				<button
@@ -132,9 +141,9 @@
 					aria-label="Toggle theme"
 				>
 					{#if mode.current === "dark"}
-						<Icon icon="iconoir:sun-light" width="18" />
+						<Sun size={18} />
 					{:else}
-						<Icon icon="iconoir:half-moon" width="18" />
+						<Moon size={18} />
 					{/if}
 				</button>
 			</div>
@@ -148,7 +157,7 @@
 						isActive(item.path) ? "bg-foreground text-background" : "bg-muted text-muted-foreground"
 					}`}
 				>
-					<Icon icon={item.icon} width="14" />
+					<item.icon size={14} />
 					{item.label}
 				</a>
 			{/each}
@@ -168,18 +177,23 @@
 			<div class="flex flex-wrap items-center gap-3">
 				{#each socials as social (social.label)}
 					<a
-						class="footer-link grid h-11 w-11 place-items-center px-0!"
+						class="footer-link grid h-11 w-11 place-items-center rounded-full border border-foreground/10 transition hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background"
 						href={social.href}
 						target={social.href.startsWith("mailto") ? undefined : "_blank"}
 						rel="noreferrer"
 						aria-label={social.label}
 					>
-						<Icon icon={social.icon} width="18" />
+						<social.icon size={18} />
 					</a>
 				{/each}
-				<a class="footer-link" href={`${base}${profile.resume}`} target="_blank" rel="noreferrer"
-					>CV</a
+				<a
+					class="footer-link grid h-11 place-items-center rounded-full border border-foreground/10 px-4 font-black transition hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background"
+					href={`${base}${profile.resume}`}
+					target="_blank"
+					rel="noreferrer"
 				>
+					CV <ArrowRight size={14} />
+				</a>
 			</div>
 		</div>
 	</footer>
