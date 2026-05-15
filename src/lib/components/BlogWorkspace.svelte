@@ -24,11 +24,10 @@
 		while ((match = pattern.exec(paragraph))) {
 			if (match.index > cursor) segments.push({ text: paragraph.slice(cursor, match.index) });
 			const label = match[1];
+			const wikiEntry = activeNote.wikiLinks.find((item) => item.label === label);
 			segments.push({
 				text: label,
-				link:
-					activeNote.wikiLinks.find((item) => item.label === label)?.href ??
-					`${base}/blog/${activeNote.id}#${label.toLowerCase().replaceAll(" ", "-")}`
+				link: wikiEntry?.href ?? `#${label.toLowerCase().replaceAll(" ", "-")}`
 			});
 			cursor = match.index + match[0].length;
 		}
@@ -79,9 +78,7 @@
 							<a
 								href={segment.link.startsWith("http")
 									? segment.link
-									: segment.link.startsWith("/")
-										? segment.link
-										: `${base}/blog/${segment.link}`}
+									: `${base}/blog/${activeNote.id}${segment.link}`}
 								target={segment.link.startsWith("http") ? "_blank" : undefined}
 								rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
 								class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
@@ -130,7 +127,7 @@
 				<ZettelLink
 					href={backlink.href ?? `${base}/blog/${activeNote.id}#${backlink.slug}`}
 					title={backlink.label}
-					reason="Reference website for this concept."
+					reason="Concept reference from this note."
 					variant="backlink"
 				/>
 			{/each}
