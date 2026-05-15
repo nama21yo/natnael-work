@@ -149,6 +149,54 @@ export const resumeProjects: PortfolioProject[] = [
 
 export const blogNotes: BlogNote[] = [
 	{
+		id: "gsoc-2026-week-0",
+		title: "GSoC 2026: Amharic DBpedia Ontology Mapping — Week 0",
+		category: "gsoc-2026",
+		excerpt:
+			"Kicking off GSoC 2026 with DBpedia by researching Amharic ontology alignment using Afro-XLM-R and LangGraph. Here's what I did during Week 0.",
+		body: [
+			"## What is this project about?",
+			"This summer I'm working on [[GSoC 2026]] with [[DBpedia]] to extend the [[Amharic DBpedia Chapter]]. The goal is to build an agentic system that can map Amharic text entities to their correct DBpedia ontology classes — a critical step toward making Amharic knowledge accessible in the global knowledge graph.",
+			"The project leverages [[Afro-XLM-R]], a multilingual transformer model optimized for African languages, fine-tuned with [[LoRA]] and orchestrated through [[LangGraph]] for robust agentic pipeline design.",
+			"## Week 0 Progress Report",
+			"**Mentorship & Communication**",
+			"I had my first onboarding meeting with my [[GSoC Mentors]] — [[Prof. Dr. Ricardo Usbeck]], [[Andargachew]], [[Tilahun Abedissa Taffa]], and [[Hizkiel Mitiku Alemayehu]]. We introduced ourselves and locked in weekly sync meetings for Fridays at 2:00 PM. I also joined all primary communication channels: Slack, WhatsApp, and Microsoft Teams.",
+			"My mentors have rich backgrounds — Prof. Usbeck leads AI research in Germany, Andargachew is a lecturer at Addis Ababa University specializing in knowledge graphs and NLP, Tilahun is a PhD researcher at Leuphana University working on hybrid QA systems for low-resource languages, and Hizkiel is a PhD candidate at Paderborn University focused on NLP and Digital Humanities.",
+			"**Research & Literature Review**",
+			"I conducted a deep-dive revision of the [[Amharic DBpedia Chapter]] research paper and analyzed the three property-retriever models developed by the [[DICE-Research team]]. I also refreshed my core knowledge of [[Transformers]], [[BERT]], and efficient fine-tuning methods like [[LoRA]].",
+			"**Technical Exploration**",
+			"I performed model benchmarking on Kaggle using GPU access to evaluate [[mBERT]], [[XLM-R]], and [[Afro-XLM-R]]. After thorough experimentation, I validated [[Afro-XLM-R]] as the optimal base model for Amharic ontology mapping.",
+			"I selected [[LangGraph]] as the primary framework for building the project's agentic orchestration layer. Here's why:",
+			"- It is used by production-grade companies like LinkedIn",
+			"- It has large community support",
+			"- It supports both Python and JavaScript (unlike alternatives like Mastra)",
+			"**Documentation & Branding**",
+			"Developed and launched this personal portfolio website and started writing weekly GSoC progress blog posts.",
+			"## Looking Ahead",
+			"Over the next 11 weeks I will be posting weekly updates. Next up: diving deeper into the Afro-XLM-R fine-tuning pipeline and setting up the LangGraph agent architecture for ontology alignment. Stay tuned."
+		],
+		wikiLinks: [
+			{ label: "GSoC 2026", slug: "gsoc-2026", href: "https://summerofcode.withgoogle.com/" },
+			{ label: "DBpedia", slug: "dbpedia", href: "https://www.dbpedia.org/" },
+			{ label: "Prof. Dr. Ricardo Usbeck", slug: "ricardo-usbeck", href: "https://www.leuphana.de/en/research/artificial-intelligence-and-explainability.html" },
+			{ label: "Tilahun Abedissa Taffa", slug: "tilahun-abedissa-taffa" },
+			{ label: "Hizkiel Mitiku Alemayehu", slug: "hizkiel-mitiku-alemayehu" },
+			{ label: "Andargachew", slug: "andargachew" },
+			{ label: "Amharic DBpedia Chapter", slug: "amharic-dbpedia-chapter" },
+			{ label: "DICE-Research team", slug: "dice-research", href: "https://dice-research.org/" },
+			{ label: "Afro-XLM-R", slug: "afro-xlm-r", href: "https://huggingface.co/dICE-org/afro-xlm-r" },
+			{ label: "mBERT", slug: "mbert" },
+			{ label: "XLM-R", slug: "xlm-r" },
+			{ label: "Transformers", slug: "transformers", href: "https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)" },
+			{ label: "BERT", slug: "bert" },
+			{ label: "LoRA", slug: "lora" },
+			{ label: "LangGraph", slug: "langgraph", href: "https://langchain.com/langgraph" },
+			{ label: "GSoC Mentors", slug: "gsoc-mentors" }
+		],
+		linkedProjects: [],
+		tags: ["gsoc-2026", "nlp", "knowledge-graphs", "amharic", "dbpedia"]
+	},
+	{
 		id: "kademlia",
 		title: "Kademlia: wth is it? 🤔",
 		category: "distributed-systems",
