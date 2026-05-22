@@ -72,24 +72,49 @@
 
 		<div class="prose-obsidian mt-8">
 			{#each activeNote.body as paragraph (paragraph)}
-				<p>
-					{#each wikiSegments(paragraph) as segment, index (index)}
-						{#if segment.link}
-							<a
-								href={segment.link.startsWith("http")
-									? segment.link
-									: `${base}/blog/${activeNote.id}${segment.link}`}
-								target={segment.link.startsWith("http") ? "_blank" : undefined}
-								rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
-								class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
-							>
-								{segment.text}
-							</a>
-						{:else}
-							<span>{segment.text}</span>
-						{/if}
-					{/each}
-				</p>
+				{#if paragraph.startsWith('IMAGE:')}
+					<figure class="my-8 overflow-hidden rounded-2xl border border-foreground/10 bg-muted/20">
+						<img src={`${base}${paragraph.replace('IMAGE:', '').trim()}`} alt="Blog Note Visual" class="w-full h-auto object-cover" />
+					</figure>
+				{:else if paragraph.startsWith('QUOTE:')}
+					<blockquote class="my-6 border-l-4 border-cyan pl-6 pr-4 py-3 italic text-muted-foreground bg-cyan/5 rounded-r-xl">
+						{#each wikiSegments(paragraph.replace('QUOTE:', '').trim()) as segment, index (index)}
+							{#if segment.link}
+								<a
+									href={segment.link.startsWith("http")
+										? segment.link
+										: `${base}/blog/${activeNote.id}${segment.link}`}
+									target={segment.link.startsWith("http") ? "_blank" : undefined}
+									rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+									class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
+								>
+									{segment.text}
+								</a>
+							{:else}
+								<span>{segment.text}</span>
+							{/if}
+						{/each}
+					</blockquote>
+				{:else}
+					<p>
+						{#each wikiSegments(paragraph) as segment, index (index)}
+							{#if segment.link}
+								<a
+									href={segment.link.startsWith("http")
+										? segment.link
+										: `${base}/blog/${activeNote.id}${segment.link}`}
+									target={segment.link.startsWith("http") ? "_blank" : undefined}
+									rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+									class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
+								>
+									{segment.text}
+								</a>
+							{:else}
+								<span>{segment.text}</span>
+							{/if}
+						{/each}
+					</p>
+				{/if}
 			{/each}
 		</div>
 	</article>

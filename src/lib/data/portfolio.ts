@@ -213,6 +213,47 @@ export const blogNotes: BlogNote[] = [
 			"semantic-search-qa"
 		],
 		tags: ["distributed-systems", "system-design", "ML"]
+	},
+	{
+		id: "ai-as-mentor",
+		title: "AI as a Mentor: The Socratic Tutor Approach",
+		category: "ML",
+		excerpt:
+			"Use AI as a mentor, not as something to completely depend on. Learn the basics well and use AI to simplify your learning and productivity.",
+		body: [
+			"I heard a Senior Google Software Engineer saying this about AI: Use AI as a mentor, not as something to completely depend on. Learn the basics well and use AI to simplify your learning and productivity.",
+			"I was reading a paper called [[Assigning AI: 7 Approaches]]. Honestly this week I was thinking about 7 Approaches on How to use AI (what a coincidence).",
+			"The paper was released in 2023 back then when GPT-4 was only for Pro users 😂.",
+			"I am mentioning it because currently most of us (including me) approach AI in an insane way. Some of us completely fear it and go with old ways with Google search. Some of us use it so intensively. Balancing (in general that is the toughest thing in life balancing spiritual life and so on) is needed.",
+			"So the paper mentions 7 approaches on how to use AI.",
+			"I will only explain about AI as a Mentor and for the rest, I recommend checking out the paper.",
+			"IMAGE:/images/paper-2/paper-title.jpg",
+			"IMAGE:/images/paper-2/paper-abstract.jpg",
+			"How to use AI as Mentor?",
+			"Theory: People learn best when they make mistakes and immediately receive tailored feedback. (this is actually an experimental study that has been done)",
+			"How? Change the way how you prompt. For the entire flow check Page 10. And this method is also called [[Socratic Tutor]].",
+			"Summary:",
+			"One of the recommended LLM-powered learning techniques is to ask the chatbot to be your Socratic tutor. Give the LLM the necessary context for example about your database or some DSA problem, but do not ask for a complete solution right away.",
+			"IMAGE:/images/paper-2/prompt-example.jpg",
+			"Example Prompt:",
+			"QUOTE: Act as an expert mentor and database analyst. Ask me a series of questions in such a way that by answering these questions I will come up with a solution myself. Do not be overly supportive by revealing the pieces of the solution too early on, but if you find me to be on the wrong track, provide some hints on SQL keywords or database functions that could help me achieve the goal, giving away as little information as possible at first.",
+			"Are you using AI like that?",
+			"I wish I am using it like that but no currently I am so much into vibing. But at least for learning purposes I will try to be as minimal as possible. This is also something that I should work on too."
+		],
+		wikiLinks: [
+			{
+				label: "Assigning AI: 7 Approaches",
+				slug: "assigning-ai",
+				href: "https://arxiv.org/pdf/2306.10052"
+			},
+			{
+				label: "Socratic Tutor",
+				slug: "socratic-tutor",
+				href: "https://en.wikipedia.org/wiki/Socratic_method"
+			}
+		],
+		linkedProjects: ["semantic-search-qa"],
+		tags: ["ML", "LLM", "Learning", "AI"]
 	}
 ];
 
