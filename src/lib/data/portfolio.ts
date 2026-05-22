@@ -166,6 +166,7 @@ export const blogNotes: BlogNote[] = [
 			"Kademlia is essentially a [[Distributed Hashmap]]. In languages like Python or Java, a traditional hashmap stores data strictly on local memory. However, if a dataset is too large for one machine and you need a reliable method to distribute millions of <Key, Value> pairs across a network of independent computers, Kademlia is the blueprint you use to make it happen.",
 			"How it works?",
 			"In Kademlia, every single file (Key) and every single computer (Node) gets assigned a random 160-bit(20-byte) ID number.",
+			"IMAGE:/images/kademlia/dht-example.svg",
 			"Major takeaway from the paper: Store the file on the computer whose ID number is mathematically closest to the file's ID number.",
 			"So to calculate which one is closest we will use some distance metrics aka the [[Bitwise XOR]]. To find out how far a computer is from a file, it just XORs their two ID numbers together.",
 			"Because XOR math is perfectly symmetrical and consistent, every computer inherently knows exactly which direction to send your search request.",
@@ -216,7 +217,7 @@ export const blogNotes: BlogNote[] = [
 	},
 	{
 		id: "ai-as-mentor",
-		title: "AI as a Mentor: The Socratic Tutor Approach",
+		title: "How to use AI for students",
 		category: "ML",
 		excerpt:
 			"Use AI as a mentor, not as something to completely depend on. Learn the basics well and use AI to simplify your learning and productivity.",

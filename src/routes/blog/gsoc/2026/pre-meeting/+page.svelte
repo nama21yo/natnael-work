@@ -145,39 +145,39 @@
 
 		<div class="mt-6 border-t border-foreground/10 pt-6">
 			<p class="blog-label">Mind map</p>
-			<div class="relative mt-4 h-64 rounded-3xl bg-zinc-950 text-white overflow-hidden">
-				<svg class="absolute inset-0 h-full w-full" viewBox="0 0 260 256" preserveAspectRatio="xMidYMid meet">
+			<div class="relative mt-4 h-64 rounded-3xl bg-zinc-950 text-white overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+				<!-- SVG Connectors -->
+				<svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 260 256" preserveAspectRatio="xMidYMid meet">
+					<circle cx="130" cy="128" r="40" fill="none" stroke="rgba(34,211,238,0.2)" stroke-width="1" class="animate-ping" style="animation-duration: 3s;" />
 					{#each mindMapNodes as node}
 						{@const rad = (node.angle * Math.PI) / 180}
-						{@const x1 = 128 + 28 * Math.cos(rad)}
-						{@const y1 = 128 + 28 * Math.sin(rad)}
-						{@const x2 = 128 + 96 * Math.cos(rad)}
-						{@const y2 = 128 + 96 * Math.sin(rad)}
-						<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(34,211,238,0.25)" stroke-dasharray="6 7"/>
+						{@const cx = 130 + 85 * Math.cos(rad)}
+						{@const cy = 128 + 85 * Math.sin(rad)}
+						<line x1="130" y1="128" x2={cx} y2={cy} stroke="rgba(34,211,238,0.25)" stroke-width="1.5" stroke-dasharray="4 6" class="transition-all duration-700"/>
 					{/each}
 				</svg>
-				<div class="absolute inset-0 flex items-center justify-center">
-					<div class="grid h-16 w-16 place-items-center rounded-full border border-cyan bg-cyan text-center text-[9px] font-black text-zinc-950">
-						DBpedia
+
+				<!-- Center Node -->
+				<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+					<div class="flex h-16 w-16 items-center justify-center rounded-full border-2 border-cyan/40 bg-zinc-900/80 backdrop-blur-md text-center text-[10px] font-black text-cyan shadow-[0_0_15px_rgba(34,211,238,0.25)]">
+						DBPEDIA
 					</div>
 				</div>
+
+				<!-- Orbiting Nodes -->
 				{#each mindMapNodes as node}
 					{@const rad = (node.angle * Math.PI) / 180}
-					{@const cx = 128 + 96 * Math.cos(rad)}
-					{@const cy = 128 + 96 * Math.sin(rad)}
-					{@const px = cx > 130 ? -72 : cx < 130 ? -8 : -40}
-					{@const py = cy > 130 ? -10 : cy < 126 ? 28 : 8}
-					<div
-						style="left: calc({(cx / 260) * 100}% + {px}px); top: calc({(cy / 256) * 100}% + {py}px);"
-						class="absolute flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/10 p-2 text-center text-[8px] font-black text-white/75 transition hover:scale-110 hover:border-cyan hover:text-cyan"
+					{@const cx = 130 + 85 * Math.cos(rad)}
+					{@const cy = 128 + 85 * Math.sin(rad)}
+					<a
+						href={`${base}/blog/gsoc/2026/pre-meeting#${node.slug}`}
+						class="absolute flex h-[54px] w-[54px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-zinc-900/90 p-1.5 text-center text-[8px] leading-tight font-bold text-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:z-20 hover:scale-125 hover:border-cyan hover:bg-cyan/10 hover:text-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+						style={`left: ${(cx / 260) * 100}%; top: ${(cy / 256) * 100}%;`}
+						aria-label={node.label}
+						title={node.label}
 					>
-						<a
-							href={`${base}/blog/gsoc/2026/pre-meeting#${node.slug}`}
-							class="h-full w-full flex items-center justify-center"
-						>
-							{node.label}
-						</a>
-					</div>
+						<span class="line-clamp-3">{node.label}</span>
+					</a>
 				{/each}
 			</div>
 		</div>

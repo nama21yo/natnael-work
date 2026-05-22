@@ -134,30 +134,40 @@
 
 		<div class="mt-6 border-t border-foreground/10 pt-6">
 			<p class="blog-label">Mind map</p>
-			<div class="relative mt-4 h-64 rounded-3xl bg-zinc-950 text-white">
-				<div
-					class="absolute top-[96px] left-[88px] z-10 grid h-20 w-20 place-items-center rounded-full border border-cyan bg-cyan text-center text-[10px] font-black text-zinc-950"
-				>
-					Kademlia
+			<div class="relative mt-4 h-64 rounded-3xl bg-zinc-950 text-white overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+				<!-- SVG Connectors -->
+				<svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 260 256" preserveAspectRatio="xMidYMid meet">
+					<circle cx="130" cy="128" r="40" fill="none" stroke="rgba(34,211,238,0.2)" stroke-width="1" class="animate-ping" style="animation-duration: 3s;" />
+					{#each activeNote.wikiLinks as node, index}
+						{@const rad = (index / activeNote.wikiLinks.length) * 2 * Math.PI - Math.PI / 2}
+						{@const cx = 130 + 85 * Math.cos(rad)}
+						{@const cy = 128 + 85 * Math.sin(rad)}
+						<line x1="130" y1="128" x2={cx} y2={cy} stroke="rgba(34,211,238,0.25)" stroke-width="1.5" stroke-dasharray="4 6" class="transition-all duration-700"/>
+					{/each}
+				</svg>
+
+				<!-- Center Node -->
+				<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+					<div class="flex h-16 w-16 items-center justify-center rounded-full border-2 border-cyan/40 bg-zinc-900/80 backdrop-blur-md text-center text-[10px] font-black text-cyan shadow-[0_0_15px_rgba(34,211,238,0.25)]">
+						{activeNote.id.split('-')[0].toUpperCase()}
+					</div>
 				</div>
+
+				<!-- Orbiting Nodes -->
 				{#each activeNote.wikiLinks as node, index (node.slug)}
+					{@const rad = (index / activeNote.wikiLinks.length) * 2 * Math.PI - Math.PI / 2}
+					{@const cx = 130 + 85 * Math.cos(rad)}
+					{@const cy = 128 + 85 * Math.sin(rad)}
 					<a
 						href={`${base}/blog/${activeNote.id}#${node.slug}`}
-						class="absolute z-10 grid h-14 w-14 place-items-center rounded-full border border-white/15 bg-white/10 p-2 text-center text-[9px] font-black text-white/75 transition hover:scale-110 hover:border-cyan hover:text-cyan"
-						style={`left:${20 + ((index * 89) % 180)}px; top:${18 + ((index * 53) % 180)}px`}
+						class="absolute flex h-[54px] w-[54px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-zinc-900/90 p-1.5 text-center text-[8px] leading-tight font-bold text-white/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:z-20 hover:scale-125 hover:border-cyan hover:bg-cyan/10 hover:text-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+						style={`left: ${(cx / 260) * 100}%; top: ${(cy / 256) * 100}%;`}
 						aria-label={node.label}
+						title={node.label}
 					>
-						{node.label}
+						<span class="line-clamp-3">{node.label}</span>
 					</a>
 				{/each}
-				<svg class="absolute inset-0 h-full w-full text-cyan/25" viewBox="0 0 260 256">
-					<path
-						d="M128 132 L48 44 M128 132 L188 70 M128 132 L218 162 M128 132 L72 200 M128 132 L170 218"
-						stroke="currentColor"
-						fill="none"
-						stroke-dasharray="6 7"
-					/>
-				</svg>
 			</div>
 		</div>
 	</aside>
