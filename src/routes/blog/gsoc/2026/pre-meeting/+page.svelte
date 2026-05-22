@@ -5,22 +5,30 @@
 	const wikiLinks = [
 		{ label: "GSoC 2026", slug: "gsoc-2026", href: "https://summerofcode.withgoogle.com/programs/2026/organizations/dbpedia" },
 		{ label: "DBpedia", slug: "dbpedia", href: "https://www.dbpedia.org/" },
-		{ label: "DBpedia Paper 1", slug: "dbpedia-paper-1", href: "https://journals.sagepub.com/doi/epdf/10.3233/SW-140134" },
-		{ label: "DBpedia Paper 2", slug: "dbpedia-paper-2", href: "https://link.springer.com/chapter/10.1007/978-3-540-76298-0_52" },
-		{ label: "XLM-R Paper", slug: "xlm-r-paper", href: "https://arxiv.org/pdf/1911.02116" },
-		{ label: "Afro-XLM-R Paper", slug: "afro-xlm-r-paper", href: "https://arxiv.org/pdf/2204.06487" },
-		{ label: "BERT Paper", slug: "bert-paper", href: "https://arxiv.org/pdf/1810.04805" },
-		{ label: "Amharic DBpedia Chapter Repo", slug: "amharic-dbpedia-chapter-repo", href: "https://github.com/Amharic-DBpedia/AmharicDBpediaChapter" },
-		{ label: "Typescript", slug: "typescript", href: "https://www.typescriptlang.org/" }
+		{ label: "Amharic DBpedia Chapter", slug: "amharic-dbpedia-chapter", href: "https://drive.google.com/file/d/1_ZjC5mQ7WsquwVaXXjQqeI5zBXxHa4lq/view?usp=sharing" },
+		{ label: "Afro-XLM-R", slug: "afro-xlm-r", href: "https://huggingface.co/dice-research/amharic-property-retriever-afro-xlmr-base" },
+		{ label: "mBERT", slug: "mbert", href: "https://huggingface.co/dice-research/amharic-property-retriever-mbert" },
+		{ label: "XLM-R", slug: "xlm-r", href: "https://huggingface.co/dice-research/amharic-property-retriever-base-xlmr" },
+		{ label: "LoRA", slug: "lora", href: "https://arxiv.org/pdf/2106.09685" },
+		{ label: "BERT", slug: "bert", href: "https://huggingface.co/blog/bert-101" },
+		{ label: "LangGraph", slug: "langgraph" },
+		{ label: "benchmarking on Kaggle", slug: "benchmarking-on-kaggle", href: "https://www.kaggle.com/code/natnaelyohanes/am-dbpedia-ontology-alignment" },
+		{ label: "DICE-Research", slug: "dice-research", href: "https://dice-research.org/team/" },
+		{ label: "Prof. Dr. Ricardo Usbeck", slug: "prof-ricardo-usbeck", href: "https://www.leuphana.de/en/institutes/iis/persons/ricardo-usbeck.html" },
+		{ label: "Andargachew", slug: "andargachew", href: "https://contact-andy.github.io/" },
+		{ label: "Tilahun", slug: "tilahun", href: "https://www.leuphana.de/en/institutes/iis/persons/tilahun-taffa.html" },
+		{ label: "Hizkiel", slug: "hizkiel", href: "https://scholar.google.com/citations?user=mOMRLWEAAAAJ&hl=en" }
 	];
 
 	const bodyParagraphs = [
-		"Read two papers shared by Hizkeal on DBpedia ([[DBpedia Paper 1]], [[DBpedia Paper 2]]).",
-		"Read the three papers on XLM-R, Afro-XLM-R, and BERT ([[XLM-R Paper]], [[Afro-XLM-R Paper]], and [[BERT Paper]]).",
-		"Started refactoring the Amharic DBpedia Website locally with vanilla [[Typescript]] ([[Amharic DBpedia Chapter Repo]]).",
-		"Participated in the DBpedia [[GSoC 2026]] meeting on May 22, 2026.",
-		"Although the session was shorter than anticipated, the mentors were highly collaborative and provided clear, direct insights.",
-		"Gained a comprehensive understanding of the other contributors' project scopes."
+		"This summer I'm working on [[GSoC 2026]] with [[DBpedia]] to extend the [[Amharic DBpedia Chapter]]. The goal is to build an agentic system that maps Amharic text entities to their correct DBpedia ontology classes — a critical step toward making Amharic knowledge accessible in the global knowledge graph.",
+		"The project leverages [[Afro-XLM-R]], a multilingual transformer optimized for African languages, fine-tuned and orchestrated through [[LangGraph]].",
+		"Had my first onboarding meeting with mentors [[Prof. Dr. Ricardo Usbeck]], [[Andargachew]], [[Tilahun]], and [[Hizkiel]]. We introduced ourselves and locked in weekly sync meetings for Fridays at 2:00 PM. Joined all primary communication channels: Slack, WhatsApp, and Microsoft Teams.",
+		"My mentors have rich backgrounds — [[Prof. Dr. Ricardo Usbeck]] leads AI research in Germany at Leuphana University, [[Andargachew]] is a lecturer at Addis Ababa University specializing in knowledge graphs and NLP, [[Tilahun]] is a PhD researcher at Leuphana working on hybrid QA systems for low-resource languages, and [[Hizkiel]] is a PhD candidate at Paderborn University focused on NLP and Digital Humanities.",
+		"Conducted a deep-dive revision of the [[Amharic DBpedia Chapter]] paper and analyzed the three property-retriever models by the [[DICE-Research]] team. Refreshed core knowledge of [[BERT]] and efficient fine-tuning like [[LoRA]].",
+		"Performed model [[benchmarking on Kaggle]] using GPU to evaluate [[mBERT]], [[XLM-R]], and [[Afro-XLM-R]]. Validated [[Afro-XLM-R]] as the optimal base model for Amharic ontology mapping.",
+		"Selected [[LangGraph]] as the primary framework for the agentic orchestration layer — used in production by companies like LinkedIn with strong community support.",
+		"Over the rest 12 weeks I will be posting weekly updates. Next up: diving deeper into the Afro-XLM-R fine-tuning pipeline and setting up the LangGraph agent architecture."
 	];
 
 	function renderParagraph(paragraph: string) {
@@ -47,12 +55,12 @@
 	}
 
 	const mindMapNodes = [
-		{ label: "DBpedia Papers", slug: "dbpedia-paper-1", angle: 285 },
-		{ label: "GSoC 2026", slug: "gsoc-2026", angle: 330 },
-		{ label: "Afro-XLM-R Paper", slug: "afro-xlm-r-paper", angle: 15 },
-		{ label: "BERT Paper", slug: "bert-paper", angle: 60 },
-		{ label: "Typescript", slug: "typescript", angle: 105 },
-		{ label: "XLM-R Paper", slug: "xlm-r-paper", angle: 150 }
+		{ label: "Amharic", slug: "amharic-dbpedia-chapter", angle: 285 },
+		{ label: "LoRA", slug: "lora", angle: 330 },
+		{ label: "mBERT", slug: "mbert", angle: 15 },
+		{ label: "BERT", slug: "bert", angle: 60 },
+		{ label: "LangGraph", slug: "langgraph", angle: 105 },
+		{ label: "Afro-XLM-R", slug: "afro-xlm-r", angle: 150 }
 	];
 </script>
 
@@ -68,13 +76,13 @@
 			</a>
 			<a
 				href={`${base}/blog/gsoc/2026/pre-meeting`}
-				class="block rounded-xl px-3 py-2 text-sm font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground"
+				class="block rounded-xl bg-cyan/15 px-3 py-2 text-sm font-bold text-cyan"
 			>
 				Pre-Meeting
 			</a>
 			<a
 				href={`${base}/blog/gsoc/2026/week-0`}
-				class="block rounded-xl bg-cyan/15 px-3 py-2 text-sm font-bold text-cyan"
+				class="block rounded-xl px-3 py-2 text-sm font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground"
 			>
 				Week 0
 			</a>
@@ -85,15 +93,17 @@
 		<div class="border-b border-foreground/10 pb-5">
 			<p class="blog-label">gsoc-2026</p>
 			<h1 class="mt-3 font-mono text-4xl leading-tight font-black tracking-tight">
-				GSoC 2026 Week 0: Literature Review & Refactoring
+				GSoC 2026 Pre-Meeting: Kicking Off with DBpedia
 			</h1>
 			<p class="mt-5 text-base leading-8 text-muted-foreground">
-				Reading up on DBpedia and XLM-R models, refactoring the Amharic DBpedia website, and joining the kickoff meeting.
+				Onboarding, model benchmarking, and LangGraph selection for Amharic ontology mapping.
 			</p>
 			<div class="mt-5 flex flex-wrap gap-2">
 				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#gsoc-2026</span>
-				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#week-0</span>
+				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#pre-meeting</span>
 				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#nlp</span>
+				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#knowledge-graphs</span>
+				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#amharic</span>
 				<span class="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">#dbpedia</span>
 			</div>
 		</div>
@@ -104,7 +114,7 @@
 					{#each renderParagraph(paragraph) as segment, index (index)}
 						{#if segment.link}
 							<a
-								href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/week-0#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
+								href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/pre-meeting#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
 								target={segment.link.startsWith("http") ? "_blank" : undefined}
 								rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
 								class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
@@ -125,7 +135,7 @@
 		<div class="mt-4 space-y-3">
 			{#each wikiLinks as link (link.slug)}
 				<ZettelLink
-					href={link.href ?? `${base}/blog/gsoc/2026/week-0#${link.slug}`}
+					href={link.href ?? `${base}/blog/gsoc/2026/pre-meeting#${link.slug}`}
 					title={link.label}
 					reason="Concept reference from this note."
 					variant="backlink"
@@ -162,7 +172,7 @@
 						class="absolute flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/10 p-2 text-center text-[8px] font-black text-white/75 transition hover:scale-110 hover:border-cyan hover:text-cyan"
 					>
 						<a
-							href={`${base}/blog/gsoc/2026/week-0#${node.slug}`}
+							href={`${base}/blog/gsoc/2026/pre-meeting#${node.slug}`}
 							class="h-full w-full flex items-center justify-center"
 						>
 							{node.label}

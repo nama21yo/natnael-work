@@ -212,7 +212,7 @@ export const blogNotes: BlogNote[] = [
 			"job-matching-microservices",
 			"semantic-search-qa"
 		],
-		tags: ["gsoc-2026", "distributed-systems", "system-design", "ML"]
+		tags: ["distributed-systems", "system-design", "ML"]
 	}
 ];
 
