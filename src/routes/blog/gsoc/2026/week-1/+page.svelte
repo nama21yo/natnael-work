@@ -4,11 +4,41 @@
 
 	const wikiLinks = [
 		{ label: "GSoC 2026", slug: "gsoc-2026", href: "https://summerofcode.withgoogle.com/programs/2026/organizations/dbpedia" },
-		{ label: "Mentorship", slug: "mentor" },
+		{ label: "Andargachew", slug: "mentor" },
 		{ label: "LangGraph Paper", slug: "langgraph-paper", href: "https://papers.academic-conferences.org/index.php/icair/article/view/4142/3966" },
-		{ label: "Amharic DBpedia Site", slug: "amharic-site" },
+		{ label: "Vanilla Typescript", slug: "amharic-site" },
 		{ label: "Knowledge Graphs Course", slug: "kg-course", href: "https://open.hpi.de/courses/knowledgegraphs2023/items/4GIRFuJmmJIQyXTs4muG0h" }
 	];
+
+	const bodyParagraphs = [
+		"Scheduled a meeting with one of my Mentors ([[Andargachew]]) and discussed what has been done on the previous GSOC 2025, what were the challenges, what things I should focus on and overall roadmap for the next weeks. I also got some advice on how I should document and organize things.",
+		"Read a paper on how to orchestrate Agents using Langgraph and built a Knowledge Graph with it ([[LangGraph Paper]]).",
+		"Finished refactoring the previous website with [[Vanilla Typescript]] (trying to use minimal libraries so that it won’t be difficult for contributors).",
+		"Started a new course on knowledge graphs by Prof. Dr. Harald Sack so that my understanding is comprehensive ([[Knowledge Graphs Course]])."
+	];
+
+	function renderParagraph(paragraph: string) {
+		const segments: { text: string; link?: string }[] = [];
+		let cursor = 0;
+		let match: RegExpExecArray | null;
+		const wikiPattern = /\[\[([^\]]+)\]\]/g;
+		while ((match = wikiPattern.exec(paragraph))) {
+			if (match.index > cursor) {
+				segments.push({ text: paragraph.slice(cursor, match.index) });
+			}
+			const label = match[1];
+			const wikiEntry = wikiLinks.find((item) => item.label === label);
+			segments.push({
+				text: label,
+				link: wikiEntry?.href
+			});
+			cursor = match.index + match[0].length;
+		}
+		if (cursor < paragraph.length) {
+			segments.push({ text: paragraph.slice(cursor) });
+		}
+		return segments;
+	}
 
 	const mindMapNodes = [
 		{ label: "Mentorship", slug: "mentor", angle: 270 },
@@ -69,20 +99,26 @@
 					</span>
 					May 23, 2026 - May 29, 2026
 				</h2>
-				<ul class="mt-5 space-y-4 text-muted-foreground list-disc pl-5 marker:text-cyan">
-					<li>
-						Scheduled a meeting with one of my Mentors (Andargachew) and discussed what has been done on the previous GSOC 2025, what were the challenges, what things I should focus on and overall roadmap for the next weeks. I also got some advice on how I should document and organize things.
-					</li>
-					<li>
-						Read a paper on how to orchestrate Agents using Langgraph and built a Knowledge Graph with it <a href="https://papers.academic-conferences.org/index.php/icair/article/view/4142/3966" target="_blank" class="text-cyan hover:underline">[Paper]</a>.
-					</li>
-					<li>
-						Finished refactoring the previous website with Vanilla Typescript (trying to use minimal libraries so that it won’t be difficult for contributors).
-					</li>
-					<li>
-						Started a new course on knowledge graphs by Prof. Dr. Harald Sack so that my understanding is comprehensive <a href="https://open.hpi.de/courses/knowledgegraphs2023/items/4GIRFuJmmJIQyXTs4muG0h" target="_blank" class="text-cyan hover:underline">[Course Link]</a>.
-					</li>
-				</ul>
+				<div class="mt-5 space-y-4">
+					{#each bodyParagraphs as paragraph (paragraph)}
+						<p>
+							{#each renderParagraph(paragraph) as segment, index (index)}
+								{#if segment.link}
+									<a
+										href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/week-1#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
+										target={segment.link.startsWith("http") ? "_blank" : undefined}
+										rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+										class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
+									>
+										{segment.text}
+									</a>
+								{:else}
+									<span>{segment.text}</span>
+								{/if}
+							{/each}
+						</p>
+					{/each}
+				</div>
 			</section>
 		</div>
 	</article>

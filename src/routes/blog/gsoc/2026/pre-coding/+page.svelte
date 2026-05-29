@@ -6,13 +6,58 @@
 		{ label: "GSoC 2026", slug: "gsoc-2026", href: "https://summerofcode.withgoogle.com/programs/2026/organizations/dbpedia" },
 		{ label: "DBpedia Paper 1", slug: "dbpedia-paper-1", href: "https://journals.sagepub.com/doi/epdf/10.3233/SW-140134" },
 		{ label: "DBpedia Paper 2", slug: "dbpedia-paper-2", href: "https://link.springer.com/chapter/10.1007/978-3-540-76298-0_52" },
-		{ label: "XLM-R, Afro-XLM-R, BERT", slug: "transformers", href: "https://arxiv.org/pdf/2204.06487" },
-		{ label: "Amharic DBpedia Repo", slug: "amharic-dbpedia-repo", href: "https://github.com/Amharic-DBpedia/AmharicDBpediaChapter" },
-		{ label: "Amharic DBpedia Chapter Paper", slug: "amharic-dbpedia-paper", href: "https://drive.google.com/file/d/1_ZjC5mQ7WsquwVaXXjQqeI5zBXxHa4lq/view?usp=sharing" },
-		{ label: "Kaggle Benchmarking", slug: "kaggle-benchmark", href: "https://www.kaggle.com/code/natnaelyohanes/am-dbpedia-ontology-alignment" },
-		{ label: "LoRA", slug: "lora", href: "https://arxiv.org/pdf/2106.09685" },
-		{ label: "LangGraph Docs", slug: "langgraph", href: "https://langchain-ai.github.io/langgraph/" }
+		{ label: "XLM-R, Afro-XLM-R, and BERT", slug: "transformers", href: "https://arxiv.org/pdf/2204.06487" },
+		{ label: "repo", slug: "amharic-dbpedia-repo", href: "https://github.com/Amharic-DBpedia/AmharicDBpediaChapter" },
+		{ label: "Link", slug: "amharic-dbpedia-paper", href: "https://drive.google.com/file/d/1_ZjC5mQ7WsquwVaXXjQqeI5zBXxHa4lq/view?usp=sharing" },
+		{ label: "Kaggle", slug: "kaggle-benchmark", href: "https://www.kaggle.com/code/natnaelyohanes/am-dbpedia-ontology-alignment" },
+		{ label: "Notes", slug: "lora", href: "https://arxiv.org/pdf/2106.09685" },
+		{ label: "Docs", slug: "langgraph", href: "https://langchain-ai.github.io/langgraph/" }
 	];
+
+	const bodyParagraphsPeriod1 = [
+		"Read two papers shared by Hizkeal on DBpedia ([[DBpedia Paper 1]], [[DBpedia Paper 2]]).",
+		"Read the three papers on [[XLM-R, Afro-XLM-R, and BERT]].",
+		"Started refactoring the Amharic Dbpedia Website locally with vanilla Typescript ([[repo]]).",
+		"Participated in the DBpedia GSoC 2026 meeting on May 22, 2026. Although the session was shorter than anticipated, the mentors were highly collaborative and provided clear, direct insights.",
+		"Gained a comprehensive understanding of the other contributors' project scopes.",
+		"Documented the progress achieved throughout the week in a formal report."
+	];
+
+	const bodyParagraphsPeriod0 = [
+		"I had my first onboarding meeting on Thursday with my GSOC Mentors (Dr. Richard, Hizkeal, Tilahun, and Andargachew). We introduced ourselves to each other and decided to have our meeting be on Fridays at 2:00 PM.",
+		"They also gave me to checkout the current Models that being used for Ontology Alignment and property retrieval on the Amharic DBpedia.",
+		"Joined and integrated into all primary communication channels: Slack, WhatsApp, and Microsoft Teams.",
+		"Conducted a revision of the Amharic DBpedia Chapter research paper ([[Link]]).",
+		"I have read and performed model benchmarking on Kaggle using GPU access to explore mBERT, XLM-R, and Afro-XLM-R that was developed by the DICE-Research team ([[Kaggle]]).",
+		"Revised core knowledge of Transformers, BERT, and efficient fine-tuning methods like LoRA ([[Notes]]).",
+		"Selected LangGraph as the primary framework for building the project's agentic orchestration layer and read about Langgraph ([[Docs]]).",
+		"Why LangGraph? It is used by production-grade companies like LinkedIn. It has large community support. It is customized for both python and javascript compared to Mastra.",
+		"Developed and launched a personal portfolio website and started writing a blog about GSOC progress each week.",
+		"Prepared a technical reference document for mentors to outline the proposed development roadmap."
+	];
+
+	function renderParagraph(paragraph: string) {
+		const segments: { text: string; link?: string }[] = [];
+		let cursor = 0;
+		let match: RegExpExecArray | null;
+		const wikiPattern = /\[\[([^\]]+)\]\]/g;
+		while ((match = wikiPattern.exec(paragraph))) {
+			if (match.index > cursor) {
+				segments.push({ text: paragraph.slice(cursor, match.index) });
+			}
+			const label = match[1];
+			const wikiEntry = wikiLinks.find((item) => item.label === label);
+			segments.push({
+				text: label,
+				link: wikiEntry?.href
+			});
+			cursor = match.index + match[0].length;
+		}
+		if (cursor < paragraph.length) {
+			segments.push({ text: paragraph.slice(cursor) });
+		}
+		return segments;
+	}
 
 	const mindMapNodes = [
 		{ label: "DBpedia", slug: "dbpedia", angle: 270 },
@@ -75,14 +120,26 @@
 					</span>
 					May 16, 2026 - May 22, 2026
 				</h2>
-				<ul class="mt-5 space-y-4 text-muted-foreground list-disc pl-5 marker:text-brand">
-					<li>Read two papers shared by Hizkeal on DBpedia (<a href="https://journals.sagepub.com/doi/epdf/10.3233/SW-140134" target="_blank" class="text-brand hover:underline">Paper1</a>, <a href="https://link.springer.com/chapter/10.1007/978-3-540-76298-0_52" target="_blank" class="text-brand hover:underline">Paper2</a>).</li>
-					<li>Read the three papers on XLM-R, Afro-XLM-R, and BERT.</li>
-					<li>Started refactoring the Amharic DBpedia Website locally with vanilla Typescript (<a href="https://github.com/Amharic-DBpedia/AmharicDBpediaChapter" target="_blank" class="text-brand hover:underline">repo</a>).</li>
-					<li>Participated in the DBpedia GSoC 2026 meeting on May 22, 2026. Although the session was shorter than anticipated, the mentors were highly collaborative and provided clear, direct insights.</li>
-					<li>Gained a comprehensive understanding of the other contributors' project scopes.</li>
-					<li>Documented the progress achieved throughout the week in a formal report.</li>
-				</ul>
+				<div class="mt-5 space-y-4">
+					{#each bodyParagraphsPeriod1 as paragraph (paragraph)}
+						<p>
+							{#each renderParagraph(paragraph) as segment, index (index)}
+								{#if segment.link}
+									<a
+										href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/pre-coding#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
+										target={segment.link.startsWith("http") ? "_blank" : undefined}
+										rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+										class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
+									>
+										{segment.text}
+									</a>
+								{:else}
+									<span>{segment.text}</span>
+								{/if}
+							{/each}
+						</p>
+					{/each}
+				</div>
 			</section>
 
 			<!-- Timeline 2 -->
@@ -93,27 +150,26 @@
 					</span>
 					May 7, 2026 - May 15, 2026
 				</h2>
-				<ul class="mt-5 space-y-4 text-muted-foreground list-disc pl-5 marker:text-cyan">
-					<li>I had my first onboarding meeting on Thursday with my GSOC Mentors (Dr. Richard, Hizkeal, Tilahun, and Andargachew). We introduced ourselves to each other and decided to have our meeting be on Fridays at 2:00 PM.</li>
-					<li>They also gave me to checkout the current Models that being used for Ontology Alignment and property retrieval on the Amharic DBpedia.</li>
-					<li>Joined and integrated into all primary communication channels: Slack, WhatsApp, and Microsoft Teams.</li>
-					<li>Conducted a revision of the Amharic DBpedia Chapter research paper.</li>
-					<li>I have read and performed model benchmarking on Kaggle using GPU access to explore mBERT, XLM-R, and Afro-XLM-R that was developed by the DICE-Research team (<a href="https://www.kaggle.com/code/natnaelyohanes/am-dbpedia-ontology-alignment" target="_blank" class="text-cyan hover:underline">Kaggle</a>).</li>
-					<li>Revised core knowledge of Transformers, BERT, and efficient fine-tuning methods like LoRA.</li>
-					<li>Selected LangGraph as the primary framework for building the project's agentic orchestration layer and read about Langgraph.</li>
-					<li class="list-none">
-						<div class="mt-2 rounded-xl bg-muted/30 p-4 border border-border">
-							<strong class="text-foreground">Why LangGraph?</strong>
-							<ul class="mt-2 space-y-1 list-inside list-[circle] text-sm">
-								<li>It is used by production-grade companies like LinkedIn.</li>
-								<li>It has large community support.</li>
-								<li>It is customized for both python and javascript compared to Mastra.</li>
-							</ul>
-						</div>
-					</li>
-					<li>Developed and launched a personal portfolio website and started writing a blog about GSOC progress each week.</li>
-					<li>Prepared a technical reference document for mentors to outline the proposed development roadmap.</li>
-				</ul>
+				<div class="mt-5 space-y-4">
+					{#each bodyParagraphsPeriod0 as paragraph (paragraph)}
+						<p>
+							{#each renderParagraph(paragraph) as segment, index (index)}
+								{#if segment.link}
+									<a
+										href={segment.link.startsWith("http") ? segment.link : `${base}/blog/gsoc/2026/pre-coding#${segment.text.toLowerCase().replaceAll(" ", "-")}`}
+										target={segment.link.startsWith("http") ? "_blank" : undefined}
+										rel={segment.link.startsWith("http") ? "noreferrer" : undefined}
+										class="rounded bg-brand-subtle/50 px-1 font-semibold text-brand-muted transition-colors hover:bg-brand hover:text-background"
+									>
+										{segment.text}
+									</a>
+								{:else}
+									<span>{segment.text}</span>
+								{/if}
+							{/each}
+						</p>
+					{/each}
+				</div>
 			</section>
 		</div>
 	</article>
