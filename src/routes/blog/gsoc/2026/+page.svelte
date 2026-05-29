@@ -4,8 +4,8 @@
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 
 	const gsocWeeks = [
-		{ id: "week-0", title: "Week 0", date: "2026-05-22", status: "completed", excerpt: "Reading DBpedia and XLM-R models, refactoring the Amharic DBpedia website." },
-		{ id: "pre-meeting", title: "Pre-Meeting", date: "2026-05-07", status: "completed", excerpt: "GSoC Kickoff: onboarding, model benchmarking, and LangGraph selection." }
+		{ id: "week-1", title: "Week 1", date: "2026-05-29", status: "completed", excerpt: "Mentorship syncs, deep dives into LangGraph orchestration, finishing up the site refactor, and embarking on a specialized KG course." },
+		{ id: "pre-coding", title: "Pre-Coding", date: "2026-05-22", status: "completed", excerpt: "Merging insights from the initial onboarding weeks, from reading papers to exploring LangGraph and finalizing the roadmap." }
 	];
 
 	const mentors = [
