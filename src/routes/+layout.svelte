@@ -17,6 +17,7 @@
 		Home,
 		Database,
 		BookMarked,
+		Presentation,
 		User,
 		ArrowRight
 	} from "lucide-svelte";
@@ -31,6 +32,12 @@
 		{ href: `${base}/`, path: "/", label: "Home", icon: Home },
 		{ href: `${base}/projects`, path: "/projects", label: "Projects", icon: Database },
 		{ href: `${base}/blog`, path: "/blog", label: "Blogs", icon: BookMarked },
+		{
+			href: `${base}/presentations`,
+			path: "/presentations",
+			label: "Presentations",
+			icon: Presentation
+		},
 		{ href: `${base}/about`, path: "/about", label: "About", icon: User }
 	];
 
