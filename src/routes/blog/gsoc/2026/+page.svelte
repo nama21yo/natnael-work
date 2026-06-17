@@ -4,8 +4,38 @@
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 
 	const gsocWeeks = [
-		{ id: "week-1", title: "Week 1", date: "2026-05-29", status: "completed", excerpt: "Mentorship syncs, deep dives into LangGraph orchestration, finishing up the site refactor, and embarking on a specialized KG course." },
-		{ id: "pre-coding", title: "Pre-Coding", date: "2026-05-22", status: "completed", excerpt: "Merging insights from the initial onboarding weeks, from reading papers to exploring LangGraph and finalizing the roadmap." }
+		{
+			id: "week-3",
+			title: "Week 3",
+			date: "2026-06-12",
+			status: "completed",
+			excerpt:
+				"Extraction and statistics API, frontend/backend/E2E CI, Java 8 compatibility, Husky hooks, and extraction-framework debugging notes."
+		},
+		{
+			id: "week-2",
+			title: "Week 2",
+			date: "2026-06-05",
+			status: "completed",
+			excerpt:
+				"Backend infrastructure, sanitizer and dump preview endpoints, Playwright coverage, UI updates, and first Amharic template mappings."
+		},
+		{
+			id: "week-1",
+			title: "Week 1",
+			date: "2026-05-29",
+			status: "completed",
+			excerpt:
+				"Mentorship syncs, deep dives into LangGraph orchestration, finishing up the site refactor, and embarking on a specialized KG course."
+		},
+		{
+			id: "pre-coding",
+			title: "Pre-Coding",
+			date: "2026-05-22",
+			status: "completed",
+			excerpt:
+				"Merging insights from the initial onboarding weeks, from reading papers to exploring LangGraph and finalizing the roadmap."
+		}
 	];
 
 	const mentors = [
@@ -114,7 +144,7 @@
 				<div class="rounded-[2rem] border border-foreground/10 bg-background/75 p-6">
 					<p class="section-kicker">Tech Stack</p>
 					<div class="mt-4 flex flex-wrap gap-2">
-						{#each ["Afro-XLM-R", "LoRA", "LangGraph", "Python", "Transformers", "BERT"] as tech}
+						{#each ["Afro-XLM-R", "LoRA", "LangGraph", "Python", "Transformers", "BERT"] as tech (tech)}
 							<span class="rounded-full bg-muted px-3 py-1 text-sm font-bold">{tech}</span>
 						{/each}
 					</div>

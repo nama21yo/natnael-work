@@ -149,6 +149,54 @@ export const resumeProjects: PortfolioProject[] = [
 
 export const blogNotes: BlogNote[] = [
 	{
+		id: "gsoc-2026-week-3",
+		title: "GSoC 2026 Week 3",
+		category: "gsoc-2026",
+		excerpt:
+			"Extraction and statistics API, frontend/backend/E2E CI, Java 8 compatibility, Husky hooks, and extraction-framework debugging notes.",
+		body: [
+			"Week 3 focused on making the Amharic DBpedia implementation safer to run: extraction statistics, CI, Java compatibility, and debugging real extraction-framework failures."
+		],
+		wikiLinks: [
+			{
+				label: "Website CI PR",
+				slug: "website-ci-pr",
+				href: "https://github.com/Amharic-DBpedia/website/pull/1"
+			},
+			{
+				label: "Extraction Framework",
+				slug: "extraction-framework",
+				href: "https://github.com/dbpedia/extraction-framework"
+			}
+		],
+		linkedProjects: [],
+		tags: ["gsoc-2026", "ci", "fastapi", "extraction-framework"]
+	},
+	{
+		id: "gsoc-2026-week-2",
+		title: "GSoC 2026 Week 2",
+		category: "gsoc-2026",
+		excerpt:
+			"Backend infrastructure, sanitizer and dump preview endpoints, Playwright coverage, UI updates, and first Amharic template mappings.",
+		body: [
+			"Week 2 connected infrastructure work with visible Amharic DBpedia progress: backend endpoints, browser tests, UI sections, statistics tooling, and three initial template-to-ontology mappings."
+		],
+		wikiLinks: [
+			{
+				label: "LangGraph",
+				slug: "langgraph",
+				href: "https://langchain-ai.github.io/langgraph/"
+			},
+			{
+				label: "DBpedia Mappings",
+				slug: "dbpedia-mappings",
+				href: "https://mappings.dbpedia.org/"
+			}
+		],
+		linkedProjects: [],
+		tags: ["gsoc-2026", "fastapi", "playwright", "dbpedia-mappings"]
+	},
+	{
 		id: "kademlia",
 		title: "Kademlia: wth is it? 🤔",
 		category: "distributed-systems",
